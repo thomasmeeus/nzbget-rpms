@@ -23,7 +23,9 @@ to achieve maximum download speed while using minimal system resources.
 
 %prep
 %setup -q
+pwd
 ls -la
+ls -la ..
 %patch0
 
 %build
