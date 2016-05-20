@@ -1,0 +1,84 @@
+--- /usr/share/nzbget/nzbget.conf.orig	2016-05-20 07:39:48.000000000 -0400
++++ /usr/share/nzbget/nzbget.conf	2016-05-20 08:03:17.791000000 -0400
+@@ -23,7 +23,7 @@
+ #
+ # On POSIX you can use "~" as alias for home directory (e.g. "~/downloads").
+ # On Windows use absolute paths (e.g. "C:\Downloads").
+-MainDir=~/downloads
++MainDir=/var/lib/nzbget
+ 
+ # Destination directory for downloaded files.
+ #
+@@ -93,7 +93,7 @@
+ #
+ # Set to empty value to disable the creating of the lock-file and the
+ # check for another running instance (not recommended).
+-LockFile=${MainDir}/nzbget.lock
++LockFile=/run/nzbget/nzbget.lock
+ 
+ # Where to store log file, if it needs to be created.
+ #
+@@ -271,7 +271,7 @@
+ #
+ # NOTE: If you set the option to "127.0.0.1" you will be able to connect to NZBGet
+ # only from the computer running NZBGet. This restriction applies to web-interface too.
+-ControlIP=0.0.0.0
++ControlIP=127.0.0.1
+ 
+ # Port which NZBGet server and remote client use (1-65535).
+ #
+@@ -380,7 +380,7 @@
+ # NOTE: This option has effect only if the program was started from
+ # root-account, otherwise it is ignored and the daemon runs under
+ # current user id.
+-DaemonUsername=root
++DaemonUsername=nzbget
+ 
+ # Specify default umask (affects file permissions) for newly created
+ # files, POSIX only (000-1000).
+@@ -957,7 +957,7 @@
+ #  reset  - delete existing log file on program start and create a new one;
+ #  rotate - create new log file for each day, delete old files,
+ #           see option <RotateLog>.
++WriteLog=none
+-WriteLog=append
+ 
+ # Log file rotation period (days).
+ #
+@@ -966,22 +966,22 @@
+ RotateLog=3
+ 
+ # How error messages must be printed (screen, log, both, none).
++ErrorTarget=screen
+-ErrorTarget=both
+ 
+ # How warning messages must be printed (screen, log, both, none).
++WarningTarget=screen
+-WarningTarget=both
+ 
+ # How info messages must be printed (screen, log, both, none).
++InfoTarget=screen
+-InfoTarget=both
+ 
+ # How detail messages must be printed (screen, log, both, none).
++DetailTarget=screen
+-DetailTarget=log
+ 
+ # How debug messages must be printed (screen, log, both, none).
+ #
+ # Debug-messages can be printed only if the program was compiled in
+ # debug-mode: "./configure --enable-debug".
++DebugTarget=screen
+-DebugTarget=log
+ 
+ # Number of messages stored in buffer and available for remote
+ # clients (messages).
+@@ -1401,7 +1401,7 @@
+ #
+ # If 7-Zip binary is in your PATH you may leave the path part and set only
+ # the executable name ("7z" or "7za" on POSIX or "7z.exe" on Windows).
+-SevenZipCmd=7z
++SevenZipCmd=7za
+ 
+ # Files to delete after successful download.
+ #
