@@ -22,7 +22,8 @@ NZBGet is an Usenet-client written in C++ and designed with performance in mind
 to achieve maximum download speed while using minimal system resources.
 
 %prep
-%autosetup
+%setup -q
+%patch0
 
 %build
 %configure
