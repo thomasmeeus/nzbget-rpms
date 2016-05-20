@@ -8,7 +8,7 @@ URL:		http://nzbget.net
 Source0:	https://github.com/%{name}/%{name}/releases/download/v%{version}/%{name}-%{version}-src.tar.gz
 Source1:        nzbget.service
 Source2:        nzbget-tmpfiles.conf
-Patch1:         nzbget-config.patch
+Patch0:         nzbget-config.patch
 
 %{?systemd_requires}
 BuildRequires:  systemd
