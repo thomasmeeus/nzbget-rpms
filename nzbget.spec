@@ -8,7 +8,7 @@ URL:		http://nzbget.net
 Source0:	https://github.com/%{name}/%{name}/releases/download/v%{version}/%{name}-%{version}-src.tar.gz
 Source1:        nzbget.service
 Source2:        nzbget-tmpfiles.conf
-Patch0:         nzbget-config.patch
+Patch1:         nzbget-config.patch
 
 %{?systemd_requires}
 BuildRequires:  systemd
@@ -22,11 +22,7 @@ NZBGet is an Usenet-client written in C++ and designed with performance in mind
 to achieve maximum download speed while using minimal system resources.
 
 %prep
-%setup -q
-pwd
-ls -la
-ls -la ..
-%patch0
+%autosetup
 
 %build
 %configure
