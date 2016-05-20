@@ -4,7 +4,9 @@ Unofficial packages for [Nzbget](http://nzbget.net/).
 
 Packages are currently only provided for EL7.
 
-## Installing from COPR
+## Installation
+
+### Installing from COPR
 
 Precompiled packages can be found in the [cosmopetrich/nzbget COPR repository](
 /root/nzbget-packages/Dockerfile). You should only use these if you've inspected
@@ -16,7 +18,7 @@ under /etc/yum/yum.repos.d. Sample .repo files can be obtained by hitting the
 'repo download' button for the appropriate release on the project's COPR landing
 page.
 
-## Building manually
+### Building manually
 
 You can skip this if you already know how to drive `rpmbuild`. There's nothing
 special about this build.
@@ -63,3 +65,15 @@ special about this build.
 
 The resulting RPM will be saved to `$HOME/rpmbuild/RPMS/`. You can then install
 it and its dependencies with `yum install PATH_TO_RPM`.
+
+## Usage
+
+Once the package is installed, edit /etc/nzbget.conf and make sure that the
+initial settings are to your liking.
+
+Note that:
+
+ * You probably don't want to change any filesystem paths.
+ * The standard config uses the default username and password, but listens on
+   localhost only.
+Once the package is installed, you'll probably want to enable 
