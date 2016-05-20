@@ -1,5 +1,5 @@
---- nzbget.conf.orig	2016-05-20 07:39:48.000000000 -0400
-+++ nzbget.conf		2016-05-20 08:03:17.791000000 -0400
+--- nzbget-16.4/nzbget.conf.orig	2016-05-20 07:39:48.000000000 -0400
++++ nzbget-16.4.nzbget.conf		2016-05-20 08:03:17.791000000 -0400
 @@ -23,7 +23,7 @@
  #
  # On POSIX you can use "~" as alias for home directory (e.g. "~/downloads").
