@@ -37,26 +37,28 @@ special about this build.
  4. Link the spec file and local sources into the rpmbuild root.
 
     ```
-    ln -s $PWD/SPECS/* $HOME/rpmbuild/SPECS
-    ln -s $PWD/SOURCES/* $HOME/rpmbuild/SOURCES
+    ln -s $PWD/nzbget.spec $HOME/rpmbuild/SPECS
+    ln -s $PWD/nzbget.service $HOME/rpmbuild/SOURCES
+    ln -s $PWD/nzbget-tmpfiles.conf $HOME/rpmbuild/SOURCES
+    ln -s $PWD/nzbget-config.patch $HOME/rpmbuild/SOURCES
     ```
 
  5. Download the source tarball from upstream.
 
     ```
-    spectool --get-files --all --sourcedir SPECS/nzbget.spec
+    spectool --get-files --all --sourcedir nzbget.spec
     ```
 
  6. Install build dependencies.
 
     ```
-    yum-builddep SPECS/nzbget.spec
+    yum-builddep nzbget.spec
     ```
 
  7. Build the RPM.
 
     ```
-    rpmbuild --clean -ba SPECS/nzbget.spec
+    rpmbuild --clean -ba nzbget.spec
     ```
 
 The resulting RPM will be saved to `$HOME/rpmbuild/RPMS/`. You can then install
