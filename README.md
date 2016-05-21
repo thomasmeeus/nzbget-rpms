@@ -20,8 +20,15 @@ page.
 
 ### Building manually
 
-You can skip this if you already know how to drive `rpmbuild`. There's nothing
-special about this build.
+I've hacked together a horrible makefile to build and release this package since
+I couldn't find a public build server or CI system that can build an SPEC file
+with an external source from scratch.
+
+If you don't want to use the Makefile then you should be able to build the
+package directly with mock or rpmbuild easily enough, just make sure you pass in
+the `_pkg_version` and `_pkg_release` defines with the appropriate values.
+
+To use the makefile, follow the procedure below.
 
  1. Clone this repository somewhere.
  2. Install some required packages.
@@ -30,50 +37,75 @@ special about this build.
     yum install rpmdevtools yum-utils
     ```
 
- 3. Set up your build environment.
+ 3. Install build dependencies.
 
     ```
-    rpmdev-setuptree
+    sudo yum-builddep SPECS/nzbget.spec
     ```
 
- 4. Link the spec file and local sources into the rpmbuild root.
+ 4. Build the RPM.
 
     ```
-    ln -s $PWD/nzbget.spec $HOME/rpmbuild/SPECS
-    ln -s $PWD/nzbget.service $HOME/rpmbuild/SOURCES
-    ln -s $PWD/nzbget-tmpfiles.conf $HOME/rpmbuild/SOURCES
-    ln -s $PWD/nzbget-config.patch $HOME/rpmbuild/SOURCES
+    make rpm
     ```
 
- 5. Download the source tarball from upstream.
+    Or just the SRPM.
 
     ```
-    spectool --get-files --all --sourcedir nzbget.spec
+    make srpm
     ```
 
- 6. Install build dependencies.
-
-    ```
-    yum-builddep nzbget.spec
-    ```
-
- 7. Build the RPM.
-
-    ```
-    rpmbuild --clean -ba nzbget.spec
-    ```
-
-The resulting RPM will be saved to `$HOME/rpmbuild/RPMS/`. You can then install
-it and its dependencies with `yum install PATH_TO_RPM`.
+The resulting files will be saved into RPMS/ or SRPMs/ inside the repo.
 
 ## Usage
 
 Once the package is installed, edit /etc/nzbget.conf and make sure that the
-initial settings are to your liking.
+initial settings are to your liking. The config included in the package uses
+the default username and password, but listens on localhost only by default.
 
-Note that:
+Once you're happy with config, enable and start the nzbget service.
 
- * You probably don't want to change any filesystem paths.
- * The standard config uses the default username and password, but listens on
-   localhost only.
-Once the package is installed, you'll probably want to enable 
+```
+systemctl start nzbget
+systemtl enable nzbget
+```
+
+## Release process
+
+I was aiming for semi-reproducible builds. Unfortunately none of the public
+build servers I know of can build a SPEC file with external sources. Using a
+full CI system is another option, but most of those (Travis, Circle) use Ubuntu
+for their build environments.
+
+As an interim measure, I'm building the SRPM locally, uploading it to Github
+Releases, then telling COPR to build directly from there.
+
+The rough procedure I use is documented below.
+
+ 1. Install and configure [aktau/github-release](https://github.com/aktau/github-release).
+ 2. Install and configure the [COPR cli](https://developer.fedoraproject.org/deployment/copr/copr-cli.html).
+ 3. Bump the version or release at the top of the Makefile.
+ 4. Build a package locally.
+
+    ```
+    make rpm
+    ```
+
+ 5. Test the new package.
+ 6. Do a `git commit`, then tag the new commit.
+
+    ```
+    make release-tag
+    ```
+ 7. Upload the SRPM to github.
+
+    ```
+    make release-create
+    make release-upload  
+    ```
+
+ 8. Tell COPR to build the new SRPM.
+
+    ```
+    make release-build
+    ```

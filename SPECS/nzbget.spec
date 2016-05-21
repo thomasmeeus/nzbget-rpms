@@ -66,7 +66,6 @@ mkdir -p %{buildroot}/run/%{name}
 /usr/bin/getent passwd %{name} /dev/null || \
 	/usr/sbin/useradd -r -g %{name} -d %{_datadir}/%{name} -s /sbin/nologin \
 	-c "Nzbget usenet binary downloader" %{name}
-install -d -o %{name} -g %{name} -m 0755 %{buildroot}%{_sharedstatedir}/%{name}/
 
 %post
 %systemd_post %{name}.service

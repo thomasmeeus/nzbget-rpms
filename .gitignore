@@ -1,2 +1,5 @@
 SOURCES/nzbget-*-src.tar.gz
-*.rpm
+RPMS/
+SRPMS/
+BUILD/
+BUILDROOT/
