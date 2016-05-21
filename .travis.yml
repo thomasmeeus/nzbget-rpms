@@ -1,0 +1,12 @@
+script: make srpm
+
+deploy:
+  provider: releases
+  api_key: "GITHUB OAUTH TOKEN"
+  file: nzbget-${TRAVIS_TAG}.el7.centos.src.rpm
+  skip_cleanup: true
+  on:
+    tags: true
+
+after_deploy:
+  - copr-cli build cosmopetrich/nzbget "https://github.com/${TRAVIS_REPO_SLUG}/releases/download/%{TRAVIS_TAG}/nzbget-${TRAVIS_TAG}.el7.centos.src.rpm"
