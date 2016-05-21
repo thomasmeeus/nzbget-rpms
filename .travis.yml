@@ -1,3 +1,13 @@
+before_install:
+  - sudo apt-get -qq update
+  - sudo apt-get -y install rpmbuild
+
+install:
+  - pip install copr-cli rpmspectool
+
+cache:
+  - pip
+
 script: make srpm
 
 deploy:

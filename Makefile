@@ -6,7 +6,7 @@ DEFAULT_GOAL:=srpm
 
 .PHONY: srpm
 srpm: 
-#spectool --get-files --all nzbget.spec
+	spectool --get-files --all nzbget.spec
 	rpmbuild --define "_sourcedir $(PWD)" --define "_specdir $(PWD)" --define "_builddir $(PWD)" --define "_srcrpmdir $(PWD)" --define "_rpmdir $(PWD)" --define "_buildrootdir $(BUILDDIR)" --clean -bs $(SPEC)
 
 .PHONY: clean
