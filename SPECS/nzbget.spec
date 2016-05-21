@@ -1,6 +1,6 @@
 Name:		nzbget
-Version:	16.4
-Release:	1%{?dist}
+Version:	%{_pkg_version}
+Release:	%{_pkg_release}%{?dist}
 Summary:	Usenet binary downloader
 
 License:	GPLv2
