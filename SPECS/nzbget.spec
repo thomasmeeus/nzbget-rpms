@@ -14,6 +14,8 @@ Patch0:         nzbget-config.patch
 BuildRequires:  systemd
 BuildRequires:  libxml2-devel
 BuildRequires:  ncurses-devel
+BuildRequires:  gcc-c++
+BuildRequires:  openssl-devel
 Requires:       p7zip
 Requires(pre):  shadow-utils
 
@@ -50,7 +52,6 @@ mkdir -p %{buildroot}/run/%{name}
 
 %files
 %license /usr/share/doc/%{name}/COPYING
-%doc /usr/share/doc/%{name}/AUTHORS
 %doc /usr/share/doc/%{name}/ChangeLog
 %doc /usr/share/doc/%{name}/README
 %{_bindir}/%{name}
